@@ -19,20 +19,19 @@ class _FoodMasterListState extends State<FoodMasterList> {
   void _checkNetworkConnectivty() async {
     var _connectionResponse = await _connectivity.checkConnectivity();
     if (_connectionResponse == ConnectivityResult.mobile) {
-      _status = "Now you are using Mobile Data";
-      _statusColor = const Color(0xFF00c853);
+      _status = "You are connected to Mobile Data";
       hasInternet = true;
       //showOverLay(context);
       fetchPosts();
     } else if (_connectionResponse == ConnectivityResult.wifi) {
-      _status = "Now you are using Wifi";
-      _statusColor = const Color(0xFFf57c00);
+      _status = "You are connected to Wifi";
+      _statusColor = Colors.orange;
       //showOverLay(context);
       hasInternet = true;
       fetchPosts();
     } else {
       _status = "Please Check Your Internet Connection";
-      _statusColor = const Color(0xFFc30000);
+      _statusColor = Colors.red;
     }
     setState(() {});
   }
@@ -86,7 +85,7 @@ class _FoodMasterListState extends State<FoodMasterList> {
       appBar: AppBar(
         title: const Text('Food Master List'),
       ),
-      body: hasInternet
+      body: !hasInternet
           ? Card(
               child: FutureBuilder(
                 future: fetchPosts(),
@@ -119,7 +118,9 @@ class _FoodMasterListState extends State<FoodMasterList> {
                           ),
                           Text(
                             _status.toString(),
-                            style: const TextStyle(fontSize: 15),
+                            style: const TextStyle(
+                              fontSize: 15,
+                            ),
                           ),
                         ],
                       ),
@@ -194,7 +195,7 @@ class _FoodMasterListState extends State<FoodMasterList> {
               ),
             )
           : Center(
-            child: Column(
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Card(
@@ -203,18 +204,18 @@ class _FoodMasterListState extends State<FoodMasterList> {
                     ),
                     color: Colors.cyan,
                   ),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => MyApp()),
-                      );
-                    },
-                    child: const Text('Home Page'),
-                  )
+                  // TextButton(
+                  //   onPressed: () {
+                  //     Navigator.push(
+                  //       context,
+                  //       MaterialPageRoute(builder: (context) => MyApp()),
+                  //     );
+                  //   },
+                  //   child: const Text('Home Page'),
+                  // )
                 ],
               ),
-          ),
+            ),
     );
   }
 }
