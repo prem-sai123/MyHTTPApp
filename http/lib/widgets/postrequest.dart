@@ -1,7 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-
-import '../Models/user.dart';
+import '../Models/postFoodMaster.dart';
 
 class postRequest extends StatefulWidget {
   @override
@@ -9,22 +10,28 @@ class postRequest extends StatefulWidget {
 }
 
 class _postRequestState extends State<postRequest> {
-  User? _user;
   final TextEditingController nameEditingController = TextEditingController();
 
   final TextEditingController jobEditingController = TextEditingController();
 
-  Future<User?> addUser(String? inputName, String? inputJob) async {
-    const String baseUrl = "https://reqres.in/api/users";
-    final response = await http.post(Uri.parse(baseUrl), body: {
-      "name": inputName,
-      "job": inputJob,
-    });
-
-    if (response.statusCode == 201) {
+  Future<PostFoodMaster?> addFooditem() async {
+    const String baseUrl =
+        "http://testt2t.easycloud.in:8080/openbravo/org.openbravo.service.json.jsonrest/TTT_food_master?l=sai&p=welcome";
+    final response = await http.post(Uri.parse(baseUrl),
+        body: jsonEncode({
+          "data": {
+            "name": "My Test Request",
+            "fats": 5,
+            "carbs": 5,
+            "proteins": 5,
+            "tTTFoodType": "69F3A8500CDF47D3BF9F12D8EA199135",
+            "tTTFoodIngredient": "9BCE0382BF86491B80FBB03719EE8FCC"
+          }
+        }));
+    var data = response.body;
+    if (response.statusCode == 200) {
       print("SUCCESS");
-      final String responseBody = response.body;
-      return userFromJson(responseBody);
+      return postFoodMasterFromJson(data);
     } else {
       print("FAIL");
     }
@@ -55,14 +62,7 @@ class _postRequestState extends State<postRequest> {
             ),
             FlatButton(
               color: Colors.amberAccent,
-              onPressed: () async {
-                final inputName = nameEditingController.text;
-                final inputJob = jobEditingController.text;
-                final _userData = await addUser(inputName, inputJob) as User;
-                setState(() {
-                  _user = _userData;
-                });
-              },
+              onPressed: addFooditem,
               child: const Text(
                 'Add user',
                 style: TextStyle(
@@ -70,10 +70,6 @@ class _postRequestState extends State<postRequest> {
                   fontSize: 15,
                 ),
               ),
-            ),
-            Container(
-              height: 50,
-              color: Colors.blueAccent,
             ),
           ],
         ),

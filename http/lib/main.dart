@@ -9,7 +9,7 @@ void main() {
             appBar: AppBar(
               title: const Text('My Http request'),
             ),
-            body: MyApp(),
+            body: const MyApp(),
         ),
       ),
   );
@@ -40,7 +40,7 @@ class _MyAppState extends State<MyApp> {
                 );
               }),
           ElevatedButton(
-            child: const Text('Post Data'),
+            child: const Text('Post Data 1'),
             onPressed: () {
               Navigator.push(
                 context,

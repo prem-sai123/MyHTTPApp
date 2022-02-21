@@ -85,7 +85,7 @@ class _FoodMasterListState extends State<FoodMasterList> {
       appBar: AppBar(
         title: const Text('Food Master List'),
       ),
-      body: !hasInternet
+      body: hasInternet
           ? Card(
               child: FutureBuilder(
                 future: fetchPosts(),
@@ -97,7 +97,7 @@ class _FoodMasterListState extends State<FoodMasterList> {
                         children: [
                           const SizedBox(
                             height: 80,
-                            width: 60,
+                            width: 70,
                             child: CircularProgressIndicator(
                               color: Colors.orangeAccent,
                               strokeWidth: 5,
@@ -197,8 +197,8 @@ class _FoodMasterListState extends State<FoodMasterList> {
           : Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Card(
+                children: const [
+                  Card(
                     child: Text(
                       'You are not Connected to Internet',
                     ),
@@ -208,7 +208,7 @@ class _FoodMasterListState extends State<FoodMasterList> {
                   //   onPressed: () {
                   //     Navigator.push(
                   //       context,
-                  //       MaterialPageRoute(builder: (context) => MyApp()),
+                  //       MaterialPageRoute(builder: (context) => ),
                   //     );
                   //   },
                   //   child: const Text('Home Page'),
