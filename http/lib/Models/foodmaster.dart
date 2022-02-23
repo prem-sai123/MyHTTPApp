@@ -1,6 +1,6 @@
 import 'dart:convert';
 class FoodMaster {
-  final String? foodName;
+  String? foodName;
   final int? fats;
   final int? carbs;
   final int? proteins;
@@ -21,6 +21,7 @@ class FoodMaster {
         foodType: json['tTTFoodType'],
      );
   }
+  @override
   String toString(){
     return foodName.toString();
   }

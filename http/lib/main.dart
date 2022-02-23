@@ -1,17 +1,22 @@
 import 'package:flutter/material.dart';
 import 'widgets/foodmasterlist.dart';
 import 'widgets/postrequest.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import './cubit/myhttp_cubit.dart';
 
 void main() {
   runApp(
-      MaterialApp(
+    BlocProvider(
+      create: (context) => MyhttpCubit(),
+      child: MaterialApp(
         home: Scaffold(
-            appBar: AppBar(
-              title: const Text('My Http request'),
-            ),
-            body: const MyApp(),
+          appBar: AppBar(
+            title: const Text('My Http request'),
+          ),
+          body: const MyApp(),
         ),
       ),
+    ),
   );
 }
 
@@ -30,22 +35,24 @@ class _MyAppState extends State<MyApp> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           ElevatedButton(
-              child: const Text('Get Data'),
-              onPressed: () {
-                Navigator.push(
+            child: const Text('Get Data'),
+            onPressed: () {
+              BlocProvider.of<MyhttpCubit>(context).displayList();
+              Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => const FoodMasterList(),
                   ),
                 );
-              }),
+            },
+          ),
           ElevatedButton(
-            child: const Text('Post Data 1'),
+            child: const Text('Post Data'),
             onPressed: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => postRequest(),
+                  builder: (context) => const postRequest(),
                 ),
               );
             },
