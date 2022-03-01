@@ -15,7 +15,6 @@ class _FoodMasterListState extends State<FoodMasterList> {
       title: const Text('Food Master List'),
     );
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       appBar: _appBar,
       body: Column(
         children: [

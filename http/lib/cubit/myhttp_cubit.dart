@@ -9,7 +9,7 @@ class MyhttpCubit extends Cubit<MyHTTPState> {
   Future<List<FoodMaster>> fetchFoodMasterList() async {
     try {
       const url =
-          'http://testt2t.easycloud.in:8080/openbravo/org.openbravo.service.json.jsonrest/TTT_food_master?l=sai&p=welcome&_endRow=10&_sortBy=updated%20desc';
+          'http://testt2t.easycloud.in/openbravo/org.openbravo.service.json.jsonrest/TTT_food_master?l=sai&p=welcome&_endRow=10&_sortBy=creationDate%20desc';
       final response = await http.get(Uri.parse(url));
       if (response.statusCode == 200) {
         final jsonData = jsonDecode(response.body) as Map<String, dynamic>;
@@ -22,6 +22,7 @@ class MyhttpCubit extends Cubit<MyHTTPState> {
         }
         // _foodMasterList
         //     .sort((a, b) => a.foodName![0].compareTo(b.foodName![0]));
+        print(_foodMasterList);
         return _foodMasterList;
       } else {
         return [];
